@@ -23,6 +23,9 @@ Route::group(['middleware' => ['auth']], function()
     // Dashboard Route
     Route::get('/dashboard', 'AdminController@dashboard')->name('dashboard');
 
+    // Product Route
+    Route::resource('products', 'ProductController');
+
     // Profile Routes
     Route::get('/profile', 'AdminController@profile')->name('profile');
     Route::post('/update-profile-info', 'AdminController@updateProfileInfo')->name('updateProfileInfo');
