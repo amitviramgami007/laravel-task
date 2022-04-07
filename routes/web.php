@@ -24,7 +24,9 @@ Route::group(['middleware' => ['auth']], function()
     Route::get('/dashboard', 'AdminController@dashboard')->name('dashboard');
 
     // Frontend Route
-    Route::get('/frontend', 'HomeController@frontend')->name('frontend');
+    Route::get('/frontend', 'HomeController@imageSlider')->name('frontend');
+    Route::get('/frontend-products', 'HomeController@viewProducts')->name('frontend-products');
+    Route::post('/frontend-products/import', 'HomeController@storeProducts')->name('frontend-products.import');
 
     // Users Route
     Route::resource('users', 'UserController');

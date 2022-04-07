@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Banner;
 use Illuminate\Http\Request;
+use App\Imports\ProductsImport;
+use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Facades\Session;
 
 class HomeController extends Controller
 {
@@ -26,8 +30,23 @@ class HomeController extends Controller
         return redirect('/dashboard');
     }
 
-    public function frontend()
+    public function imageSlider()
     {
-        return view('frontend.home');
+        $banners = Banner::all();
+        return view('frontend.image-slider', compact('banners'));
+    }
+
+    public function viewProducts()
+    {
+        return view('frontend.products');
+    }
+
+    public function storeProducts(Request $request)
+    {
+        $file = $request->file('import_file');
+        Excel::import(new ProductsImport, $file);
+
+        Session::flash('statusCode', 'success');
+        return redirect()->route('frontend-products')->with('status', 'Product Imported Successfully');
     }
 }

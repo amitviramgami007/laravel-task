@@ -25,5 +25,16 @@ class UsersTableSeeder extends Seeder
             'created_by' => 1,
             'updated_by' => 1,
         ]);
+
+        User::create([
+            'name' => 'User',
+            'email' => 'user@user.com',
+            'password' => bcrypt('User@123'),
+            'role' => 'User',
+            'email_verified_at' => now(),
+            'remember_token' => Str::random(10),
+            'created_by' => 1,
+            'updated_by' => 1,
+        ]);
     }
 }

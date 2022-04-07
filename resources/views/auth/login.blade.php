@@ -14,11 +14,6 @@
         <div class="login-box">
             <!-- /.login-logo -->
             <div class="card card-outline card-primary">
-                {{-- <div class="card-header text-center">
-                    <a href="{{ route('login') }}">
-                        <img src="{{ asset('images/logo.png') }}" alt="Logo" class="brand-image rounded" style="max-height: 50px;">
-                    </a>
-                </div> --}}
                 <div class="card-body">
                     <p class="login-box-msg">Sign in to start your session</p>
                     <form method="POST" action="{{ route('login') }}">
