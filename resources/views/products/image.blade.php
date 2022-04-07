@@ -1,1 +1,1 @@
-<img src="{{ asset('uploads/'.$image) }}" alt="product image" style="width:80px; height:80px;">
+<img src="{{ strpos($image, 'https:')  !== false ? $image : asset('/storage/uploads/'.$image) }}" alt="product image" style="width:80px; height:80px;">

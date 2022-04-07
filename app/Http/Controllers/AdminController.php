@@ -13,7 +13,10 @@ class AdminController extends Controller
 {
     public function dashboard()
     {
-        return view('admin.dashboard');
+        $userCount = getTotalCount('User');
+        $bannerCount = getTotalCount('Banner');
+        $productCount = getTotalCount('Product');
+        return view('admin.dashboard', compact('userCount', 'bannerCount', 'productCount'));
     }
 
     public function profile()

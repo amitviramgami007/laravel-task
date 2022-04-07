@@ -48,6 +48,10 @@ class LoginController extends Controller
      */
     protected function authenticated(Request $request, $user)
     {
+        if(auth()->user()->role == 'User')
+        {
+            return redirect('/frontend');
+        }
         return redirect('/dashboard');
     }
 }

@@ -4,20 +4,21 @@
 @endsection
 
 @section('breadcrumb-title')
-    <h3>Product Create</h3>
+    <h3>Banner Create</h3>
 @endsection
 
 @section('breadcrumb-items')
-    <li class="breadcrumb-item">Products</li>
+    <li class="breadcrumb-item">Banners</li>
     <li class="breadcrumb-item active">Create</li>
 @endsection
 
 @section('content')
 
-    {!! Form::open(['route' => 'products.store', 'method'=>'POST', 'enctype' => 'multipart/form-data']) !!}
-        @include('products.form')
+    {!! Form::open(array('route' => 'banners.store', 'method'=>'POST', 'enctype' => 'multipart/form-data')) !!}
+        @include('banners.form')
     {!! Form::close() !!}
 
 @endsection
 
-@include('products.script')
+@section('script')
+@endsection

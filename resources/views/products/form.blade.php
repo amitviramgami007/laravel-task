@@ -3,7 +3,6 @@
         <div class="col-sm-12">
             <div class="card">
                 <div class="card-body">
-
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <label for="product_name">Product Name: <span class='text-danger'>*</span></label>
@@ -21,7 +20,6 @@
                             @enderror
                         </div>
                     </div>
-
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <label for="image">Image: <span class='text-danger'>*</span></label>
@@ -30,7 +28,7 @@
                                 <span class="invalid feedback text-danger" role="alert">{{ $message }}</span>
                             @enderror
                             @if ($routeName == 'products.edit')
-                                <img src="{{ asset('uploads/'.$product->image) }}" alt="product image" style="width:80px; height:80px;" class="mt-2">
+                                <img src="{{ asset('/storage/uploads/'.$product->image) }}" alt="product image" style="width:80px; height:80px;" class="mt-2">
                             @endif
                         </div>
                     </div>

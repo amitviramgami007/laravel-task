@@ -23,8 +23,24 @@ Route::group(['middleware' => ['auth']], function()
     // Dashboard Route
     Route::get('/dashboard', 'AdminController@dashboard')->name('dashboard');
 
-    // Product Route
+    // Frontend Route
+    Route::get('/frontend', 'HomeController@frontend')->name('frontend');
+
+    // Users Route
+    Route::resource('users', 'UserController');
+
+    // Products Export Routes
+    Route::get('/products/export', 'ProductsExportController@export')->name('products.export');
+
+    // Products Import Routes
+    Route::get('/products/import', 'ProductsImportController@show')->name('products.import.show');
+    Route::post('/products/import', 'ProductsImportController@store')->name('products.import.store');
+
+    // Products Route
     Route::resource('products', 'ProductController');
+
+    // Banners Route
+    Route::resource('banners', 'BannerController');
 
     // Profile Routes
     Route::get('/profile', 'AdminController@profile')->name('profile');

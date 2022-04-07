@@ -20,6 +20,20 @@
                 </li>
 
                 <li class="nav-item">
+                    <a href="{{ route('users.index') }}" class="nav-link {{ setActive('users') }}">
+                        <i class="nav-icon fas fa-users"></i>
+                        <p>Users</p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="{{ route('banners.index') }}" class="nav-link {{ setActive('banners') }}">
+                        <i class="nav-icon fa fa-image"></i>
+                        <p>Banners</p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
                     <a href="{{ route('products.index') }}" class="nav-link {{ setActive('products') }}">
                         <i class="nav-icon fa fa-shopping-bag"></i>
                         <p>Products</p>

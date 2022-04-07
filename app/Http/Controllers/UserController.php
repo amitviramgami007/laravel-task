@@ -2,14 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Product;
+use App\Models\User;
+use Illuminate\Support\Arr;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Route;
+use App\Http\Requests\StoreUserRequest;
 use Illuminate\Support\Facades\Session;
 use Yajra\DataTables\Facades\DataTables;
-use App\Http\Requests\StoreProductRequest;
 
-class ProductController extends Controller
+class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,16 +20,16 @@ class ProductController extends Controller
      */
     public function index(Request $request)
     {
-        $createRoute = 'products.create';
+        $createRoute = 'users.create';
 
         if ($request->ajax())
         {
-            $data = Product::latest()->get();
+            $data = User::latest()->get();
 
             return DataTables::of($data)
-                ->addColumn('image', function ($data)
+                ->addColumn('role', function ($data)
                 {
-                    return (string) view('products.image', ['image' => $data->image]);
+                    return '<label class="badge badge-success">'.$data->role.'</label>';
                 })
                 ->addColumn('created_by', function ($data)
                 {
@@ -39,13 +41,13 @@ class ProductController extends Controller
                 })
                 ->addColumn('action', function($data)
                 {
-                    return (string) view('products.action', ['id' => $data->id]);
+                    return (string) view('users.action', ['id' => $data->id]);
                 })
-                ->rawColumns(['action', 'image'])
+                ->rawColumns(['action', 'role'])
                 ->make(true);
         }
 
-        return view('products.index', compact('createRoute'));
+        return view('users.index', compact('createRoute'));
     }
 
     /**
@@ -56,75 +58,86 @@ class ProductController extends Controller
     public function create()
     {
         $routeName = Route::currentRouteName();
-        return view('products.create', compact('routeName'));
+        $roles = config('dom.roles');
+        return view('users.create', compact('routeName', 'roles'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\StoreProductRequest  $request
+     * @param  \App\Http\Requests\StoreUserRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreProductRequest $request)
+    public function store(StoreUserRequest $request)
     {
         $input = $request->all();
-        $input['image'] = storeImage($request, 'uploads');
-        Product::create($input);
+        $input['password'] = Hash::make($input['password']);
+        User::create($input);
 
         Session::flash('statusCode', 'success');
-        return redirect()->route('products.index')->with('status', 'Product Created Successfully');
+        return redirect()->route('users.index')->with('status', 'User Created Successfully');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Product  $product
+     * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function show(Product $product)
+    public function show(User $user)
     {
-        return view('products.show', compact('product'));
+        return view('users.show', compact('user'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Product  $product
+     * @param  \App\Models\User $user
      * @return \Illuminate\Http\Response
      */
-    public function edit(Product $product)
+    public function edit(User $user)
     {
         $routeName = Route::currentRouteName();
-        return view('products.edit', compact('product', 'routeName'));
+        $roles = config('dom.roles');
+        return view('users.edit', compact('user', 'routeName', 'roles'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\StoreProductRequest  $request
-     * @param  \App\Models\Product  $product
+     * @param  \App\Http\Requests\StoreUserRequest  $request
+     * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function update(StoreProductRequest $request, Product $product)
+    public function update(StoreUserRequest $request, User $user)
     {
         $input = $request->all();
-        $input['image'] = storeImage($request, 'uploads');
-        $product->update($input);
+
+        if(!empty($input['password']))
+        {
+            $input['password'] = Hash::make($input['password']);
+        }
+        else
+        {
+            $input = Arr::except($input, ['password']);
+        }
+
+        $user->update($input);
 
         Session::flash('statusCode', 'success');
-        return redirect()->route('products.index')->with('status', 'Product Updated Successfully');
+        return redirect()->route('users.index')->with('status', 'User Updated Successfully');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Product  $product
+     * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Product $product)
+    public function destroy(User $user)
     {
-        $product->delete();
+        $user->delete();
         Session::flash('statusCode', 'success');
-        return redirect()->route('products.index')->with('status', 'Product Deleted Successfully');
+        return redirect()->route('users.index')->with('status', 'User Deleted Successfully');
     }
 }

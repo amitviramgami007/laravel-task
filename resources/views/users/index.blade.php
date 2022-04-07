@@ -5,11 +5,11 @@
 @endsection
 
 @section('breadcrumb-title')
-    <h3>Products</h3>
+    <h3>Users</h3>
 @endsection
 
 @section('breadcrumb-items')
-    <li class="breadcrumb-item">Products</li>
+    <li class="breadcrumb-item">Users</li>
     <li class="breadcrumb-item">List</li>
 @endsection
 
@@ -21,15 +21,13 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table class="table table-striped table-bordered display datatables data-table">
-                                <a href="{{ route('products.export') }}" class="btn btn-secondary mb-2">Export</a>
-                                <a href="{{ route('products.import.show') }}" class="btn btn-secondary mb-2 ml-2">Import</a>
+                            <table class="table table-striped table-bordered display datatables data-table p-0">
                                 <thead>
                                     <tr>
-                                        <th>Id</th>
-                                        <th>Product Name</th>
-                                        <th>Price</th>
-                                        <th>Image</th>
+                                        <th>No</th>
+                                        <th>Name</th>
+                                        <th>Email</th>
+                                        <th>Role</th>
                                         <th>Created By</th>
                                         <th>Updated By</th>
                                         <th>Action</th>
@@ -54,12 +52,12 @@
         {
             var table = $('.data-table').DataTable(
             {
-                ajax: "{{ route('products.index') }}",
+                ajax: "{{ route('users.index') }}",
                 columns: [
                     {data: 'id', name: 'id'},
-                    {data: 'product_name', name: 'product_name'},
-                    {data: 'price', name: 'price'},
-                    {data: 'image', name: 'image'},
+                    {data: 'name', name: 'name'},
+                    {data: 'email', name: 'email'},
+                    {data: 'role', name: 'role'},
                     {data: 'created_by', name: 'created_by'},
                     {data: 'updated_by', name: 'updated_by'},
                     {data: 'action', name: 'action', orderable: false, searchable: false},
