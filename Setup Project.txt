@@ -1,0 +1,15 @@
+Project Setup
+ 
+1. Run composer install command
+2. Run php artisan key:generate command
+3. Create Databse laravel_task
+4. Run php artisan migrate --seed command
+5. Run php artisan optimize command
+
+Login Credentials
+
+E-mail : admin@admin.com
+Password : Admin@123
+
+E-mail : user@user.com
+Password : User@123 

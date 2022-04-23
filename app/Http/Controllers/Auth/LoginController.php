@@ -52,6 +52,9 @@ class LoginController extends Controller
         {
             return redirect('/frontend');
         }
-        return redirect('/dashboard');
+        else
+        {
+            return redirect('/dashboard');
+        }
     }
 }

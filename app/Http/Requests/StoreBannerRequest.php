@@ -23,9 +23,31 @@ class StoreBannerRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            'image_name' => 'required',
-            'image' => 'mimes:jpeg,jpg,png,gif|required|max:10000',
-        ];
+        switch($this->method())
+        {
+            case 'GET':
+            case 'DELETE':
+            {
+                return [];
+            }
+            case 'POST':
+            {
+                return
+                [
+                    'image_name' => 'required',
+                    'image' => 'required|mimes:jpeg,jpg,png,gif|max:10000',
+                ];
+            }
+            case 'PUT':
+            case 'PATCH':
+            {
+                return
+                [
+                    'image_name' => 'required',
+                    'image' => 'mimes:jpeg,jpg,png,gif|max:10000',
+                ];
+            }
+            default: break;
+        }
     }
 }

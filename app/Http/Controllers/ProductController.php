@@ -108,7 +108,10 @@ class ProductController extends Controller
     public function update(StoreProductRequest $request, Product $product)
     {
         $input = $request->all();
-        $input['image'] = storeImage($request, 'uploads');
+        if(isset($input['image']))
+        {
+            $input['image'] = storeImage($request, 'uploads');
+        }
         $product->update($input);
 
         Session::flash('statusCode', 'success');

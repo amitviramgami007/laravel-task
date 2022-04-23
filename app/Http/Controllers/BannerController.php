@@ -108,7 +108,10 @@ class BannerController extends Controller
     public function update(StoreBannerRequest $request, Banner $banner)
     {
         $input = $request->all();
-        $input['image'] = storeImage($request, 'banners');
+        if(isset($input['image']))
+        {
+            $input['image'] = storeImage($request, 'banners');
+        }
         $banner->update($input);
 
         Session::flash('statusCode', 'success');

@@ -28,7 +28,8 @@
                                 <span class="invalid feedback text-danger" role="alert">{{ $message }}</span>
                             @enderror
                             @if ($routeName == 'products.edit')
-                                <img src="{{ asset('/storage/uploads/'.$product->image) }}" alt="product image" style="width:80px; height:80px;" class="mt-2">
+                            <img src="{{ strpos($product->image, 'https:')  !== false ? $product->image : asset('/storage/uploads/'.$product->image) }}" alt="product image" style="width:80px; height:80px;" class="mt-2">
+                                {{-- <img src="{{ asset('/storage/uploads/'.$product->image) }}" alt="product image" style="width:80px; height:80px;" > --}}
                             @endif
                         </div>
                     </div>
